@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -10,9 +11,11 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/emailField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Correo electrónico"
+            android:inputType="textEmailAddress"
             android:textColorLink="@color/colorAccent" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -22,20 +25,26 @@
         android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/dniField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="DNI"
+            android:inputType="text"
             android:textColorLink="@color/colorAccent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/passField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Contraseña"
+            android:inputType="textPassword"
+            android:password="true"
             android:textColorLink="@color/colorAccent" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -45,18 +54,19 @@
         android:orientation="horizontal">
 
         <RadioGroup
+            android:id="@+id/radioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1">
 
             <RadioButton
-                android:id="@+id/radioButton"
+                android:id="@+id/teacherButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Profesor" />
 
             <RadioButton
-                android:id="@+id/radioButton2"
+                android:id="@+id/studentButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Alumno" />
@@ -76,13 +86,13 @@
             android:orientation="vertical">
 
             <CheckBox
-                android:id="@+id/checkBox"
+                android:id="@+id/licenseCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="¿Tiene carnet?" />
 
             <CheckBox
-                android:id="@+id/checkBox2"
+                android:id="@+id/yearsCheckBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="¿Es mayor de edad?" />
@@ -90,14 +100,48 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/button"
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logButton"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        android:background="@android:color/white"
         android:text="login"
-        android:textAllCaps="true" />
+        android:textAllCaps="true"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/restoreDataButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="restaurar los datos"
+            android:textAllCaps="true"
+            android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/createPassButton"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="generar password"
+            android:textAllCaps="true"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/outputInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_weight="1" />
 
 </LinearLayout>
