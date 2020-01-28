@@ -102,13 +102,14 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/logButton"
-        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+        style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
         android:text="login"
         android:textAllCaps="true"
+        android:textColor="@color/colorAccent"
         android:textSize="14sp" />
 
     <LinearLayout
@@ -118,21 +119,23 @@
 
         <Button
             android:id="@+id/restoreDataButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="restaurar los datos"
             android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
             android:textSize="14sp" />
 
         <Button
             android:id="@+id/createPassButton"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="generar password"
             android:textAllCaps="true"
+            android:textColor="@color/colorAccent"
             android:textSize="14sp" />
 
     </LinearLayout>

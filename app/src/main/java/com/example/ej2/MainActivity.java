@@ -11,18 +11,19 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.util.Random;
 
-public class MainActivity extends AppCompatActivity{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
     private TextView infoShow;
     private CheckBox license,years;
     private TextInputEditText[] fields=new TextInputEditText[3];
     private Button logIn,restoreData,generatePass;
     private RadioGroup group;
-    private String[] sensitiveInfo=new String[5];
+    private String[] sensitiveInfo=new String[6];
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,43 +42,84 @@ public class MainActivity extends AppCompatActivity{
         for(int a=0;a!=fields.length;a++) {
             fields[a] = findViewById(fieldIds[a]);
         }
-
-        //CONFIG OnClick
-
-        logIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String data="";
-                for(int a=0;a!=fields.length;a++){
-                    data+="Field" + (a+1) + ":";
-                    if(fields[a].getText().toString().isEmpty()){
-                        Log.d("APPDebug","Data NULL on field " + (a+1));
-                        data+="NULL";
-                    }else{
-                        data+=fields[a].getText();
-                    }
-                    data+="\n";
-                }
-                data+="RadioButtonSelection:";
-                switch (group.getCheckedRadioButtonId()){
-                    case R.id.studentButton:
-                        data+="Student";
-                        break;
-                    case R.id.teacherButton:
-                        data+="Teacher";
-                        break;
-                    default:
-                        data+="NULL SELECTION";
-                }
-                data+="\n";
-                data+="Has license:" + license.isChecked() + "\n";
-                data+="+18?:" + years.isChecked() + "\n";
-                infoShow.setText(data);
-
-            }
-        });
+        setDataNull();
+        updateTextView();
+        //CONFIG ONCLICKS
+        logIn.setOnClickListener(this);
+        restoreData.setOnClickListener(this);
+        generatePass.setOnClickListener(this);
     }
     public void generatePassword(){
 
+    }
+
+    @Override
+    public void onClick(View v) {
+        String tempData;
+        switch (v.getId()){
+            case R.id.logButton:
+                for(int a=0;a!=fields.length;a++){
+                    tempData=fields[a].getText().toString();
+                    if(tempData.isEmpty()){
+                       sensitiveInfo[a]="NULL";
+                    }else{
+                        sensitiveInfo[a]=tempData;
+                    }
+                }
+                boolean exit=false;
+                switch (group.getCheckedRadioButtonId()){
+                    case R.id.teacherButton:
+                        sensitiveInfo[3]="Student";
+                        break;
+                    case R.id.studentButton:
+                        sensitiveInfo[3]="Profesor";
+                        break;
+                    default:
+                        displayToast("Seleccione alumno o estudiante");
+                        setDataNull();
+                        exit=true;
+
+                }
+                if(exit){
+                    break;
+                }
+                if(license.isChecked()){
+                    sensitiveInfo[4]="Tiene Carnet";
+                }else {
+                    sensitiveInfo[4]="No tiene Carnet";
+                }
+                if(years.isChecked()){
+                    sensitiveInfo[5]="Es mayor de edad";
+                }else{
+                    sensitiveInfo[5]="No es mayor de edad";
+                }
+
+
+                break;
+            case R.id.createPassButton:
+                sensitiveInfo[2]="Patata1234";
+                break;
+            case R.id.restoreDataButton:
+                    setDataNull();
+                break;
+
+        }
+        updateTextView();
+    }
+    public void displayToast(String text){
+        Toast toast= Toast.makeText(getApplicationContext(),text,Toast. LENGTH_SHORT);
+        toast.show();
+    }
+    public void updateTextView(){
+        String output="";
+        for(int a=0;a!=sensitiveInfo.length;a++){
+            output+=sensitiveInfo[a]+"\n";
+        }
+        infoShow.setText(output);
+    }
+    public void setDataNull(){
+        for(int a=0;a!=sensitiveInfo.length;a++){
+            sensitiveInfo[a]="NULL";
+        }
     }
 }
